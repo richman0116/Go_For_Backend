@@ -6,12 +6,12 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", withCORS(Handler))
+	http.HandleFunc("/", WithCORS(Handler))
 	http.ListenAndServe(":8080", nil)
 }
 
 // Middleware to add CORS headers to all responses
-func withCORS(next http.HandlerFunc) http.HandlerFunc {
+func WithCORS(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
