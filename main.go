@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", withCORS(handler))
+	http.HandleFunc("/", withCORS(Handler))
 	http.ListenAndServe(":8080", nil)
 }
 
@@ -26,6 +26,6 @@ func withCORS(next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func Handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello, World!")
 }
