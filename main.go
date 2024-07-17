@@ -7,12 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
-	LoadAppConfig()
+func Handler(w http.ResponseWriter, r *http.Request) {
+	g := gin.Default()
 
-	r := gin.Default()
-
-	r.GET("/message", func(ctx *gin.Context) {
+	g.GET("/message", func(ctx *gin.Context) {
 		ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
 		ctx.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
 		ctx.JSON(http.StatusOK, gin.H{
@@ -20,5 +18,13 @@ func main() {
 		})
 	})
 
-	r.Run(fmt.Sprintf(":%s", AppConfig.Port))
+	g.ServeHTTP(w, r)
+}
+
+func main() {
+	LoadAppConfig()
+
+	port := fmt.Sprintf(":%s", AppConfig.Port)
+	http.HandleFunc("/", Handler)
+	http.ListenAndServe(port, nil)
 }
