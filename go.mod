@@ -1,3 +1,3 @@
-module go-backend
+module my-go-backend
 
 go 1.22.5
